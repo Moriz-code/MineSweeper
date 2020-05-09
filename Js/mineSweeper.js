@@ -11,7 +11,7 @@ var gLevel = {
     SIZE: 4,
     MINES: 2,
     REGULARCELLS: 14,
-    life: 2
+    life: 1
 }
 
 var gGame = {
@@ -57,7 +57,7 @@ function locateRndMinesOnBoard(exsistIcell, exsistJcell) {
             firstRndNum = getRandomIntInclusive(0, gLevel.SIZE - 1)
             sectRndNum = getRandomIntInclusive(0, gLevel.SIZE - 1)
         }
-        
+
         gBoard[firstRndNum][sectRndNum].isMine = true
         gMines.push(gBoard[firstRndNum][sectRndNum])
         // console.log (firstRndNum + sectRndNum)
@@ -80,7 +80,6 @@ function renderBoard() {
                 minesDisplay = cell.minesAroundCount
                 if (cell.isMine) {
                     minesDisplay = '💣';
-                    // className += (cell.isMine) ? 'mine ' : '';
                 }
             } else {
                 minesDisplay = "";
@@ -99,7 +98,7 @@ function renderBoard() {
     }
 
     gGame.shownCounter = shownOnTheBoard;
-    console.log(gGame.shownCounter)
+    // console.log(gGame.shownCounter)
     var lifeCounter = document.querySelector('.life')
     lifeCounter.innerText = 'Life: '
     for (var i = 0; i < gLevel.life; i++) {
@@ -160,8 +159,8 @@ function cellClicked(elCell, i, j) {
     currentCell.isShown = true;
 
     if (currentCell.isMine) {
-        gLevel.life -= 1
         gGame.markedCount++
+        gLevel.life -= 1
     }
 
     if (gLevel.life === 0) {
@@ -230,14 +229,13 @@ function cellMarked(elCell) {
 // Game ends when all mines are marked and all the other cells are shown 
 function checkGameOver() {
     //if all the mark equal to mines and
-   
     if (gGame.markedCount === gLevel.MINES && gGame.shownCounter >= gLevel.REGULARCELLS) {
         // debugger
         console.log('game win with markedCount ' + gGame.markedCount + ' that equal to Mines ' + 'shown counter is ' + gGame.shownCounter + ' equal to ' + gLevel.REGULARCELLS)
         gameOver('Win');
     }
 
-   
+
 }
 
 //game over function that getting win or lose perameter
@@ -337,7 +335,7 @@ function startGame() {
 
 
     if (gLevel.SIZE === 4) {
-        gLevel.life = 2
+        gLevel.life = 1
     } else {
         gLevel.life = 3
     }
@@ -353,7 +351,7 @@ function updategLevel(elBtn) {
         case '2':
             gLevel.SIZE = 8
             gLevel.MINES = 12
-            gLevel.life = 3
+            gLevel.life = 1
             gLevel.REGULARCELLS = (gLevel.SIZE * gLevel.SIZE - gLevel.MINES)
             break;
 
@@ -368,7 +366,7 @@ function updategLevel(elBtn) {
             gLevel.SIZE = 4
             gLevel.MINES = 2
             gLevel.REGULARCELLS = 14,
-            gLevel.life = 2
+                gLevel.life = 1
             break;
     }
     startGame();
